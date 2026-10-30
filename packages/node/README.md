@@ -1,12 +1,11 @@
 # @fernohq/analytics-node
 
-https://www.npmjs.com/package/@fernohq/analytics-node
+Ferno’s Node SDK sends server-side identify, track, page, and group events to
+your Ferno project. It supports Node.js and other runtimes with compatible
+fetch and crypto APIs.
 
-### OFFICIAL DOCUMENTATION (FULL)
-- https://segment.com/docs/connections/sources/catalog/libraries/server/node
-
-### LEGACY NODE SDK MIGRATION GUIDE:
-- https://segment.com/docs/connections/sources/catalog/libraries/server/node/migration
+For additional API background, see [Segment’s compatible Node source
+documentation](https://segment.com/docs/connections/sources/catalog/libraries/server/node).
 
 
 ## Runtime Support
@@ -14,7 +13,7 @@ https://www.npmjs.com/package/@fernohq/analytics-node
 - AWS Lambda
 - Cloudflare Workers
 - Vercel Edge Functions
-- Web Workers / Browser (no device mode destination support)
+- Web Workers / Browser (runtime support varies by available APIs)
 
 ## Quick Start
 
@@ -28,7 +27,7 @@ import { Analytics } from '@fernohq/analytics-node'
 
 const analytics = new Analytics({
   writeKey: process.env.FERNO_API_KEY!,
-  host: process.env.FERNO_API_URL ?? 'https://api.useferno.com',
+  host: process.env.FERNO_API_URL ?? 'https://data.useferno.com',
   path: '/events',
   authMode: 'bearer',
 })
@@ -40,7 +39,7 @@ await analytics.closeAndFlush()
 For local development, set `FERNO_API_URL=http://localhost:8080`. Ferno API
 keys use the `ferno_pk_` prefix; keep them in environment variables.
 
-### Install library
+### Install
 ```bash
 # npm
 npm install @fernohq/analytics-node
@@ -77,10 +76,17 @@ app.post('/cart', (req, res) => {
    res.sendStatus(201)
 });
 ```
-See our [official documentation](https://segment.com/docs/connections/sources/catalog/libraries/server/node) for more examples and information.
+For more examples, see the [Ferno SDK repository](https://github.com/fernohq/sdk).
+The SDK keeps a Segment-compatible event API; Segment’s [Node configuration
+reference](https://segment.com/docs/connections/sources/catalog/libraries/server/node/#configuration)
+is available for compatibility details.
 
 
-## Settings & Configuration
-See the documentation: https://segment.com/docs/connections/sources/catalog/libraries/server/node/#configuration
+## Settings & configuration
 
-You can also see the complete list of settings in the [AnalyticsSettings interface](src/app/settings.ts).
+Ferno-specific settings include the project API key, API host, event path, and
+Bearer authentication mode. See the [AnalyticsSettings interface](src/app/settings.ts)
+for the complete list.
+
+For legacy Segment configuration names and migration behavior, see [Segment’s
+Node migration guide](https://segment.com/docs/connections/sources/catalog/libraries/server/node/migration).

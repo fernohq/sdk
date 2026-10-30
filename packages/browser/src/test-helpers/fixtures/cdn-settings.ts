@@ -6,6 +6,8 @@ export const cdnSettingsMinimal: CDNSettings = {
   integrations: {
     'Segment.io': {
       apiKey: 'my-writekey',
+      apiHost: 'api.segment.io/v1',
+      authMode: 'segment-basic',
     },
     [mockIntegrationName]: {},
   },
@@ -75,6 +77,8 @@ export const cdnSettingsKitchenSink: CDNSettings = {
     },
     'Segment.io': {
       apiKey: 'D8frB7upBChqDN9PMWksNvZYDaKJIYo6',
+      apiHost: 'api.segment.io/v1',
+      authMode: 'segment-basic',
       unbundledIntegrations: ['Google Analytics'],
       addBundledMetadata: true,
       maybeBundledConfigIds: {

@@ -21,10 +21,25 @@ export default function (
   httpConfig?: ResolvedHttpConfig,
   authMode: 'segment-basic' | 'bearer' = 'segment-basic',
   apiKey?: string,
-  jsonContentType = authMode === 'bearer'
+  jsonContentType = authMode === 'bearer',
+  apiPath?: string
 ): {
   dispatch: Dispatcher
 } {
+  function requestBody(body: object): object {
+    if (apiPath !== '/events') {
+      return body
+    }
+    if (Array.isArray(body)) {
+      return { batch: body, sentAt: new Date().toISOString() }
+    }
+    const batch = (body as { batch?: unknown }).batch
+    if (Array.isArray(batch)) {
+      return body
+    }
+    return { batch: [body], sentAt: new Date().toISOString() }
+  }
+
   function dispatch(
     url: string,
     body: object,
@@ -48,7 +63,7 @@ export default function (
       keepalive: config?.keepalive,
       headers,
       method: 'post',
-      body: JSON.stringify(body),
+      body: JSON.stringify(requestBody(body)),
       // @ts-ignore - not in the ts lib yet
       priority: config?.priority,
     }).then((res) => {

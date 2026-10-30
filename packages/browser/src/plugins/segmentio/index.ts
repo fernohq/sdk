@@ -11,7 +11,7 @@ import batch from './batched-dispatcher'
 import standard from './fetch-dispatcher'
 import { normalize } from './normalize'
 import { scheduleFlush } from './schedule-flush'
-import { SEGMENT_API_HOST } from '../../core/constants'
+import { FERNO_API_HOST, FERNO_API_PATH } from '../../core/constants'
 import {
   DeliveryStrategy,
   HttpConfig,
@@ -87,9 +87,12 @@ export function segmentio(
   const rateLimitAttempts = new WeakMap<Context, number>()
   const flushing = false
 
-  const apiHost = settings?.apiHost ?? SEGMENT_API_HOST
-  const apiPath = settings?.apiPath
-  const authMode = settings?.authMode ?? 'segment-basic'
+  const usesFernoDefaults = settings?.apiHost === undefined
+  const apiHost = settings?.apiHost ?? FERNO_API_HOST
+  const apiPath =
+    settings?.apiPath ?? (usesFernoDefaults ? FERNO_API_PATH : undefined)
+  const authMode =
+    settings?.authMode ?? (usesFernoDefaults ? 'bearer' : 'segment-basic')
   const protocol = settings?.protocol ?? 'https'
   const remote =
     apiHost.startsWith('http://') || apiHost.startsWith('https://')
@@ -132,7 +135,8 @@ export function segmentio(
           resolvedHttpConfig,
           authMode,
           writeKey,
-          apiPath !== undefined
+          apiPath !== undefined,
+          apiPath
         )
 
   async function send(ctx: Context): Promise<Context> {

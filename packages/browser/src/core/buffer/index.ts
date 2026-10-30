@@ -40,6 +40,20 @@ export type PreInitMethodName =
   | 'addSourceMiddleware'
   | 'setAnonymousId'
   | 'addDestinationMiddleware'
+  | 'startInstrumentation'
+  | 'stopInstrumentation'
+  | 'startAutocapture'
+  | 'stopAutocapture'
+  | 'startRageClicks'
+  | 'stopRageClicks'
+  | 'startDeadClicks'
+  | 'stopDeadClicks'
+  | 'startNavigation'
+  | 'stopNavigation'
+  | 'startExceptions'
+  | 'stopExceptions'
+  | 'startHeatmaps'
+  | 'stopHeatmaps'
 
 // Union of all analytics methods that _do not_ return a Promise
 type SyncPreInitMethodName = {
@@ -361,6 +375,20 @@ export class AnalyticsBuffered
   addSourceMiddleware = this._createMethod('addSourceMiddleware')
   setAnonymousId = this._createMethod('setAnonymousId')
   addDestinationMiddleware = this._createMethod('addDestinationMiddleware')
+  startInstrumentation = this._createMethod('startInstrumentation')
+  stopInstrumentation = this._createMethod('stopInstrumentation')
+  startAutocapture = this._createMethod('startAutocapture')
+  stopAutocapture = this._createMethod('stopAutocapture')
+  startRageClicks = this._createMethod('startRageClicks')
+  stopRageClicks = this._createMethod('stopRageClicks')
+  startDeadClicks = this._createMethod('startDeadClicks')
+  stopDeadClicks = this._createMethod('stopDeadClicks')
+  startNavigation = this._createMethod('startNavigation')
+  stopNavigation = this._createMethod('stopNavigation')
+  startExceptions = this._createMethod('startExceptions')
+  stopExceptions = this._createMethod('stopExceptions')
+  startHeatmaps = this._createMethod('startHeatmaps')
+  stopHeatmaps = this._createMethod('stopHeatmaps')
 
   screen = this._createMethod('screen')
   register = this._createMethod('register')

@@ -313,6 +313,8 @@ async function loadAnalytics(
   analytics.initialized = true
   analytics.emit('initialize', settings, options)
   await flushFinalBuffer(analytics, queryString, preInitBuffer)
+  if (options.instrumentation)
+    analytics.startInstrumentation(options.instrumentation)
 
   return [analytics, ctx]
 }

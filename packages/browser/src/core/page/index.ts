@@ -10,3 +10,4 @@ export {
 } from '@segment/analytics-page-tools'
 
 export * from './add-page-context'
+export * from './normalize-url'

@@ -23,7 +23,7 @@ export function assertHTTPRequestOptions(
   { body, headers, method, url }: HTTPClientRequest,
   contexts: Context[]
 ) {
-  expect(url).toBe('https://api.segment.io/v1/batch')
+  expect(url).toBe('https://data.useferno.com/events')
   expect(method).toBe('POST')
   expect(headers['Content-Type']).toBe('application/json')
   expect(headers['User-Agent']).toBe('analytics-node-next/latest')

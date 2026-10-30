@@ -1072,7 +1072,7 @@ describe('retry semantics', () => {
     expect(err.message).toContain('[403]')
   })
 
-  it('T20 Authorization header uses Basic auth when no OAuth', async () => {
+  it('T20 Authorization header uses Bearer auth by default', async () => {
     makeReqSpy.mockReturnValue(createSuccess())
 
     const { plugin: segmentPlugin } = createTestNodePlugin({
@@ -1085,8 +1085,8 @@ describe('retry semantics', () => {
 
     expect(makeReqSpy).toHaveBeenCalledTimes(1)
     const [first] = getAllRequests()
-    expect(first.headers['Authorization']).toMatch(/^Basic /)
-    expect(JSON.parse(first.body).writeKey).toBe('test-write-key')
+    expect(first.headers['Authorization']).toBe('Bearer test-write-key')
+    expect(JSON.parse(first.body).writeKey).toBeUndefined()
   })
 
   it('uses bearer auth and omits writeKey from the payload', async () => {

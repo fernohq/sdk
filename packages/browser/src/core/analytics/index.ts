@@ -56,6 +56,12 @@ import {
   IntegrationsInitOptions,
   InitOptions,
 } from '../../browser/settings'
+import {
+  FernoEventName,
+  InstrumentationOptions,
+  InstrumentationRuntime,
+  isHeatmapPreview,
+} from '../instrumentation'
 
 export type { InitOptions, AnalyticsSettings }
 
@@ -132,6 +138,8 @@ export class Analytics
   private eventFactory: EventFactory
   private _debug = false
   private _universalStorage: UniversalStorage
+  private readonly preview = isHeatmapPreview()
+  readonly instrumentation: InstrumentationRuntime
 
   initialized = false
   integrations: IntegrationsInitOptions
@@ -190,7 +198,57 @@ export class Analytics
     this.eventFactory = new EventFactory(this._user)
     this.integrations = options?.integrations ?? {}
     this.options = options ?? {}
+    this.instrumentation = new InstrumentationRuntime(
+      (name: FernoEventName, properties) => {
+        void this.track(name, properties)
+      },
+      this.options.instrumentation
+    )
     autoBind(this)
+  }
+
+  startInstrumentation(options?: InstrumentationOptions): void {
+    this.instrumentation.start(options ?? this.options.instrumentation)
+  }
+
+  stopInstrumentation(): void {
+    this.instrumentation.stop()
+  }
+  startAutocapture(): void {
+    this.instrumentation.startAutocapture()
+  }
+  stopAutocapture(): void {
+    this.instrumentation.stopAutocapture()
+  }
+  startRageClicks(): void {
+    this.instrumentation.startRageClicks()
+  }
+  stopRageClicks(): void {
+    this.instrumentation.stopRageClicks()
+  }
+  startDeadClicks(): void {
+    this.instrumentation.startDeadClicks()
+  }
+  stopDeadClicks(): void {
+    this.instrumentation.stopDeadClicks()
+  }
+  startNavigation(): void {
+    this.instrumentation.startNavigation()
+  }
+  stopNavigation(): void {
+    this.instrumentation.stopNavigation()
+  }
+  startExceptions(): void {
+    this.instrumentation.startExceptions()
+  }
+  stopExceptions(): void {
+    this.instrumentation.stopExceptions()
+  }
+  startHeatmaps(): void {
+    this.instrumentation.startHeatmaps()
+  }
+  stopHeatmaps(): void {
+    this.instrumentation.stopHeatmaps()
   }
 
   user = (): User => {
@@ -454,6 +512,7 @@ export class Analytics
   ): Promise<DispatchedEvent> {
     const ctx = new Context(event)
     ctx.stats.increment('analytics_js.invoke', 1, [event.type])
+    if (this.preview) return ctx
     if (isOffline() && !this.options.retryQueue) {
       return ctx
     }

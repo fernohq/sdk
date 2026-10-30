@@ -13,6 +13,7 @@ import type { SegmentEvent } from '../events'
 import type { Group, User } from '../user'
 import type { LegacyIntegration } from '../../plugins/ajs-destination/types'
 import { CoreAnalytics } from '@segment/analytics-core'
+import type { InstrumentationOptions } from '../instrumentation'
 
 // we can define a contract because:
 // - it gives us a neat place to put all our typedocs (they end up being inherited by the class that implements them).
@@ -77,6 +78,20 @@ export interface AnalyticsClassic extends AnalyticsClassicStubs {
  * Interface implemented by concrete Analytics class (commonly accessible if you use "await" on AnalyticsBrowser.load())
  */
 export interface AnalyticsCore extends CoreAnalytics {
+  startInstrumentation(options?: InstrumentationOptions): void
+  stopInstrumentation(): void
+  startAutocapture(): void
+  stopAutocapture(): void
+  startRageClicks(): void
+  stopRageClicks(): void
+  startDeadClicks(): void
+  stopDeadClicks(): void
+  startNavigation(): void
+  stopNavigation(): void
+  startExceptions(): void
+  stopExceptions(): void
+  startHeatmaps(): void
+  stopHeatmaps(): void
   /**
    * Tracks an event.
    * @param args - Event parameters.

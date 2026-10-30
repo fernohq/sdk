@@ -18,9 +18,9 @@ const helpers = {
   assertFetchCallRequest: (
     ...[url, options]: NonNullable<typeof testFetch['mock']['lastCall']>
   ) => {
-    expect(url).toBe('https://api.segment.io/v1/batch')
+    expect(url).toBe('https://data.useferno.com/events')
     expect(options.headers).toEqual({
-      Authorization: 'Basic Zm9vOg==',
+      Authorization: 'Bearer foo',
       'Content-Type': 'application/json',
       'User-Agent': 'analytics-node-next/latest',
     })

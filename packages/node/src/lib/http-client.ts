@@ -48,7 +48,7 @@ export interface HTTPResponse {
 export interface HTTPClientRequest {
   /**
    * URL to be used for the request
-   * @example 'https://api.segment.io/v1/batch'
+   * @example 'https://data.useferno.com/events'
    */
   url: string
   /**

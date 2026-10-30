@@ -1,6 +1,7 @@
 import { pick } from '../../lib/pick'
 import { EventProperties, SegmentEvent } from '../events'
 import { getDefaultPageContext } from '@segment/analytics-page-tools'
+import { normalizeEventUrl } from './normalize-url'
 
 /**
  * Augments a segment event with information about the current page.
@@ -13,21 +14,25 @@ export const addPageContext = (
   pageCtx = getDefaultPageContext()
 ): void => {
   const evtCtx = event.context! // Context should be set earlier in the flow
+  const mergedPageContext = { ...pageCtx, ...evtCtx.page }
+  const normalizedPageContext = {
+    ...mergedPageContext,
+    normalizedUrl: normalizeEventUrl(mergedPageContext.url),
+  }
   let pageContextFromEventProps: Pick<EventProperties, string> | undefined
   if (event.type === 'page') {
     pageContextFromEventProps =
       event.properties && pick(event.properties, Object.keys(pageCtx))
 
     event.properties = {
-      ...pageCtx,
+      ...normalizedPageContext,
       ...event.properties,
       ...(event.name ? { name: event.name } : {}),
     }
   }
 
   evtCtx.page = {
-    ...pageCtx,
+    ...normalizedPageContext,
     ...pageContextFromEventProps,
-    ...evtCtx.page,
   }
 }

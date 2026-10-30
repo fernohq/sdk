@@ -1,4 +1,28 @@
-# @segment/analytics-next
+# @fernohq/analytics-next
+
+## 2.0.1
+
+### Patch Changes
+
+- Send Ferno events using the batch envelope.
+
+## 2.0.0
+
+### Major Changes
+
+- a7de7ad: Rewrite to integrate directly with ferno's infra
+
+## 1.84.5
+
+### Patch Changes
+
+- Republish Ferno browser instrumentation package.
+
+## 1.84.4
+
+### Patch Changes
+
+- Added Ferno browser instrumentation and heatmaps.
 
 ## 1.84.3
 

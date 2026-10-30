@@ -17,6 +17,17 @@ export * from './core/user'
 export type { AnalyticsSnippet } from './browser/standalone-interface'
 export type { MiddlewareFunction } from './plugins/middleware'
 export { getGlobalAnalytics } from './lib/global-analytics-helper'
+export {
+  FERNO_EVENT_NAMES,
+  InstrumentationRuntime,
+  fingerprintElement,
+} from './core/instrumentation'
+export type {
+  FernoEventName,
+  InstrumentationOptions,
+  InstrumentationPointType,
+  ElementFingerprint,
+} from './core/instrumentation'
 export { UniversalStorage, Store, StorageObject } from './core/storage'
 export { segmentio } from './plugins/segmentio'
 export {

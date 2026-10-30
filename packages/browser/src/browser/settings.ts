@@ -13,6 +13,7 @@ import { HighEntropyHint } from '../lib/client-hints/interfaces'
 import { IntegrationsOptions } from '@segment/analytics-core'
 import { SegmentioSettings } from '../plugins/segmentio'
 import { HttpConfig } from '../plugins/segmentio/shared-dispatcher'
+import { InstrumentationOptions } from '../core/instrumentation'
 
 interface VersionSettings {
   version?: string
@@ -22,6 +23,7 @@ interface VersionSettings {
 
 export interface RemoteIntegrationSettings {
   /* @deprecated - This does not indicate browser types anymore */
+
   type?: string
 
   versionSettings?: VersionSettings
@@ -67,7 +69,7 @@ export interface RemoteSegmentIOIntegrationSettings
 
   /**
    * Host of the segment cdn - this may need to be manually enabled on the source.
-   * @default 'api.segment.io/v1'
+   * @default 'data.useferno.com'
    */
   apiHost?: string
   addBundledMetadata?: boolean
@@ -215,6 +217,7 @@ export interface IntegrationsInitOptions extends IntegrationsOptions {
 }
 
 export interface InitOptions {
+  instrumentation?: InstrumentationOptions
   /**
    * Disables storing any data on the client-side via cookies or localstorage.
    * Defaults to `false`.

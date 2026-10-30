@@ -142,15 +142,16 @@ export class Publisher {
     this._flushAt = Math.max(flushAt, 1)
     this._flushInterval = flushInterval
     this._url = tryCreateFormattedUrl(
-      host ?? 'https://api.segment.io',
-      path ?? '/v1/batch'
+      host ?? 'https://data.useferno.com',
+      path ?? (host === undefined ? '/events' : '/v1/batch')
     )
     this._httpRequestTimeout = httpRequestTimeout ?? 10000
     this._disable = Boolean(disable)
     this._httpClient = httpClient
     this._writeKey = writeKey
     this._basicAuth = b64encode(`${writeKey}:`)
-    this._authMode = authMode ?? 'segment-basic'
+    this._authMode =
+      authMode ?? (host === undefined ? 'bearer' : 'segment-basic')
     this._maxTotalBackoffDuration = maxTotalBackoffDuration ?? 43200
     this._maxRateLimitDuration = maxRateLimitDuration ?? 43200
 

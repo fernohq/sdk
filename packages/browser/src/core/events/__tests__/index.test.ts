@@ -1,7 +1,7 @@
 import uuid from '@lukeed/uuid'
 import { range, uniq } from 'lodash'
 import { EventFactory } from '..'
-import { getDefaultPageContext } from '../../page'
+import { getDefaultPageContext, normalizeEventUrl } from '../../page'
 import { User } from '../../user'
 
 describe('Event Factory', () => {
@@ -12,14 +12,20 @@ describe('Event Factory', () => {
   const shopper = { totalSpent: 100 }
 
   const defaultContext = {
-    page: getDefaultPageContext(),
+    page: {
+      ...getDefaultPageContext(),
+      normalizedUrl: normalizeEventUrl(getDefaultPageContext().url),
+    },
   }
 
   beforeEach(() => {
     user = new User()
     user.reset()
     factory = new EventFactory(user)
-    defaultContext.page = getDefaultPageContext()
+    defaultContext.page = {
+      ...getDefaultPageContext(),
+      normalizedUrl: normalizeEventUrl(getDefaultPageContext().url),
+    }
   })
 
   describe('alias', () => {

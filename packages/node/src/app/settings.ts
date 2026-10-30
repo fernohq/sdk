@@ -8,14 +8,14 @@ export interface AnalyticsSettings {
    */
   writeKey: string
   /**
-   * The base URL of the API. Default: "https://api.segment.io"
+   * The base URL of the API. Default: "https://data.useferno.com"
    */
   host?: string
   /**
-   * The API path route. Default: "/v1/batch"
+   * The API path route. Default: "/events"
    */
   path?: string
-  /** Authentication mode. Defaults to Segment Basic auth. */
+  /** Authentication mode. Defaults to Bearer auth. */
   authMode?: 'segment-basic' | 'bearer'
   /**
    * The number of times to retry flushing a batch. Default: 10

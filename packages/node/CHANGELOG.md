@@ -1,4 +1,22 @@
-# @segment/analytics-node
+# @fernohq/analytics-node
+
+## 4.0.1
+
+### Patch Changes
+
+- Send Ferno events using the batch envelope.
+
+## 4.0.0
+
+### Major Changes
+
+- a7de7ad: Rewrite to integrate directly with ferno's infra
+
+## 3.1.1
+
+### Patch Changes
+
+- Rebrand package documentation for Ferno.
 
 ## 3.1.0
 

@@ -1,6 +1,6 @@
 {
   "name": "@fernohq/analytics-node",
-  "version": "3.1.0",
+  "version": "4.0.1",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/types/index.d.ts",

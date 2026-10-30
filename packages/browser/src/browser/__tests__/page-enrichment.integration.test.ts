@@ -25,6 +25,7 @@ describe('Page Enrichment', () => {
     expect(ctx.event.properties).toMatchInlineSnapshot(`
       {
         "name": "Checkout",
+        "normalizedUrl": "http://localhost/",
         "path": "/",
         "referrer": "",
         "search": "",
@@ -40,6 +41,7 @@ describe('Page Enrichment', () => {
     })
     expect(ctx.event.context?.page).toMatchInlineSnapshot(`
       {
+        "normalizedUrl": "http://localhost/",
         "path": "/",
         "referrer": "",
         "search": "",
@@ -65,6 +67,7 @@ describe('Page Enrichment', () => {
       const page = ctx.event.context!.page
       expect(page).toMatchInlineSnapshot(`
         {
+          "normalizedUrl": "http://localhost/",
           "path": "foo",
           "referrer": "bar",
           "search": "baz",
@@ -94,6 +97,7 @@ describe('Page Enrichment', () => {
       `)
       expect(ctx.event.context!.page).toMatchInlineSnapshot(`
         {
+          "normalizedUrl": "http://localhost/",
           "path": "/",
           "referrer": "",
           "search": "",
@@ -109,6 +113,7 @@ describe('Page Enrichment', () => {
       const page = ctx.event.context!.page
       expect(page).toMatchInlineSnapshot(`
         {
+          "normalizedUrl": "http://localhost/",
           "path": "override",
           "referrer": "",
           "search": "",
@@ -142,6 +147,7 @@ describe('Page Enrichment', () => {
 
     expect(ctx.event.context?.page).toMatchInlineSnapshot(`
       {
+        "normalizedUrl": "http://localhost/not-localhost",
         "path": "/",
         "referrer": "",
         "search": "",
@@ -155,6 +161,7 @@ describe('Page Enrichment', () => {
 
     expect(ctx.event.context?.page).toMatchInlineSnapshot(`
       {
+        "normalizedUrl": "http://localhost/",
         "path": "/",
         "referrer": "foo",
         "search": "",
@@ -185,6 +192,7 @@ describe('Page Enrichment', () => {
 
     expect(ctx.event.context?.page).toMatchInlineSnapshot(`
       {
+        "normalizedUrl": "http://localhost/",
         "path": "/",
         "referrer": "",
         "search": "",
@@ -198,6 +206,7 @@ describe('Page Enrichment', () => {
     await ajs.addSourceMiddleware(({ payload, next }) => {
       expect(payload.obj?.context?.page).toMatchInlineSnapshot(`
         {
+          "normalizedUrl": "http://localhost/",
           "path": "/",
           "referrer": "",
           "search": "",
